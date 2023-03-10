@@ -12,7 +12,6 @@ public class UserSignUpDto {
     private String loginId;
     private String password;
     private String passwordConfirm;
-
     private String email;
     private String phoneNumber;
     private Long majorId;
