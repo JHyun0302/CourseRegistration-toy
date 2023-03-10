@@ -1,7 +1,6 @@
 package courseregistration.system.entity;
 
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +13,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Course {
+public class Course extends BaseTimeEntity {
     @Id
     @GeneratedValue
     @Column(name = "course_id", nullable = false)
@@ -30,10 +29,12 @@ public class Course {
     @OneToMany(mappedBy = "course")
     private List<Classes> classes;
 
-    @Builder
-    public Course(Major major, String courseName, List<Classes> classes) {
+    public Course(Major major, String courseName) {
         this.major = major;
         this.courseName = courseName;
-        this.classes = classes;
+    }
+
+    public static Course createCourse(Major major, String courseName) {
+        return new Course(major, courseName);
     }
 }
