@@ -1,7 +1,6 @@
 package courseregistration.system.entity;
 
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Classes {
+public class Classes extends BaseTimeEntity {
     @Id
     @GeneratedValue
     @Column(name = "class_id", nullable = false)
@@ -28,7 +27,6 @@ public class Classes {
     @Column(nullable = false)
     private int curStudentNum;
 
-    @Builder
     public Classes(Course course, int classNumber, String professorName, int maxStudentNum, int curStudentNum) {
         this.course = course;
         this.classNumber = classNumber;
@@ -36,4 +34,24 @@ public class Classes {
         this.maxStudentNum = maxStudentNum;
         this.curStudentNum = curStudentNum;
     }
+
+    public static Classes createClasses(Course course, int classNumber, String professorName, int maxStudentNum, int curStudentNum) {
+        return new Classes(course, classNumber, professorName, maxStudentNum, curStudentNum);
+    }
+
+    //==수강신청 신청==//
+    public void registration() {
+        this.curStudentNum++;
+    }
+
+    //==수강신청 취소==//
+    public void cancel() {
+        this.curStudentNum--;
+    }
+
+    public boolean isFull() {
+        return curStudentNum >= maxStudentNum;
+    }
+
+
 }
