@@ -26,9 +26,8 @@ class UserTest {
         //given
         Major software = new Major("software");
         em.persist(software);
-
-        User tester1 = new User("test1", "test1!", "테스터1", software, "test1@xxx.com", "010-1234-5678");
-        User tester2 = new User("test2", "test2!", "테스터2", software, "test2@xxx.com", "010-5678-1234");
+        User tester1 = User.createStudent("test1", "test1!", "테스터1", software, "test1@xxx.com", "010-1234-5678");
+        User tester2 = User.createStudent("test2", "test2!", "테스터2", software, "test2@xxx.com", "010-5678-1234");
         em.persist(tester1);
         em.persist(tester2);
 
