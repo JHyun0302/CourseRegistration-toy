@@ -1,7 +1,6 @@
 package courseregistration.system.entity;
 
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +11,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Major {
+public class Major extends BaseTimeEntity {
     @Id
     @GeneratedValue
     @Column(name = "major_id", nullable = false)
@@ -23,8 +22,14 @@ public class Major {
     @OneToMany(mappedBy = "major")
     private List<Course> courses = new ArrayList<>();
 
-    @Builder
     public Major(String majorName) {
         this.majorName = majorName;
+        this.courses = new ArrayList<>();
     }
+
+    public static Major createMajor(String majorName) {
+        return new Major(majorName);
+    }
+
+
 }
