@@ -2,7 +2,6 @@ package courseregistration.system.entity;
 
 import courseregistration.system.controller.dto.UserUpdateRequestDto;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -40,8 +39,8 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "user")
     private List<TakeClass> takeClasses;
 
-    @Builder(builderClassName = "UserSignupBuilder", builderMethodName = "signupBuilder")
-    public User(String loginId, String password, String username, Major major, String email, String phoneNumber) {
+    //    @Builder(builderClassName = "UserSignupBuilder", builderMethodName = "signupBuilder")
+    public User(String loginId, String password, String username, Major major, Role role, String email, String phoneNumber) {
         this.loginId = loginId;
         this.password = password;
         this.username = username;
@@ -52,8 +51,27 @@ public class User extends BaseTimeEntity {
         this.takeClasses = new ArrayList<>();
     }
 
+    public static User createStudent(String loginId, String password, String username, Major major, String email, String phoneNumber) {
+        return new User(loginId, password, username, major, Role.STUDENT, email, phoneNumber);
+    }
+
+    public static User createAdmin(String loginId, String password, String username, Major major, String email, String phoneNumber) {
+        return new User(loginId, password, username, major, Role.ADMIN, email, phoneNumber);
+    }
+
     public void update(UserUpdateRequestDto requestDto) {
         this.email = requestDto.getEmail();
         this.phoneNumber = requestDto.getPhoneNumber();
     }
+
+    //==수강 신청==//
+    public void registration(TakeClass saveClass) {
+        this.takeClasses.add(saveClass);
+    }
+
+    //==수강 취소==//
+    public void cancel(TakeClass deleteClass) {
+        this.takeClasses.remove(deleteClass);
+    }
+
 }
