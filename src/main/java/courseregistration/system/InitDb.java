@@ -19,7 +19,7 @@ public class InitDb {
         MajorDto major = createMajor("software");
         em.persist(major);
 
-        UserDto user = createUser("idA", "pwA!", "userA", major, Role.STUDENT, "userA@xxx.com", "010-1234-5678");
+        UserDto user = createUser("test1", "test2!", "userA", major, Role.STUDENT, "userA@xxx.com", "010-1234-5678");
         em.persist(user);
 
         CourseDto cLanguage = createCourse(major, "C Programming");
@@ -36,7 +36,7 @@ public class InitDb {
         MajorDto major = createMajor("computerScience");
         em.persist(major);
 
-        UserDto user = createUser("idB", "pwB!", "userB", major, Role.STUDENT, "userB@xxx.com", "010-2222-5678");
+        UserDto user = createUser("test2", "test2!", "userB", major, Role.STUDENT, "userB@xxx.com", "010-2222-5678");
         em.persist(user);
 
         CourseDto javaLanguage = createCourse(major, "Java Programming");
