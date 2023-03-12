@@ -26,10 +26,4 @@ public class Major extends BaseTimeEntity {
         this.majorName = majorName;
         this.courses = new ArrayList<>();
     }
-
-    public static Major createMajor(String majorName) {
-        return new Major(majorName);
-    }
-
-
 }

@@ -33,8 +33,4 @@ public class Course extends BaseTimeEntity {
         this.major = major;
         this.courseName = courseName;
     }
-
-    public static Course createCourse(Major major, String courseName) {
-        return new Course(major, courseName);
-    }
 }
