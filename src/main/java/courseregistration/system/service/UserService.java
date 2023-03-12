@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
     private final UserRepository userRepository;
     private final MajorRepository majorRepository;
-    
+
     @Transactional
     public Long join(UserSignUpDto signUpDto) {
         userRepository.findByLoginId(signUpDto.getLoginId())
@@ -50,4 +50,9 @@ public class UserService {
         return userId;
     }
 
+    public UserResponseDto findByUsername(String userName) {
+        User user = userRepository.findByUsername(userName)
+                .orElseThrow(() -> new IllegalArgumentException("Fail: Nothing username Info"));
+        return new UserResponseDto(user);
+    }
 }
