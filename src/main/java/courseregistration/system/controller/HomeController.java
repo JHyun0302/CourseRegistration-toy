@@ -1,5 +1,6 @@
 package courseregistration.system.controller;
 
+import courseregistration.system.config.SessionConst;
 import courseregistration.system.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -15,11 +16,12 @@ public class HomeController {
     private final HttpSession httpSession;
 
     @GetMapping("/")
-    public String home(@SessionAttribute(name = "loginMember", required = false) User loginUser, Model model) {
-        if (loginUser != null) {
-            model.addAttribute("user", loginUser);
+    public String home(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) User loginUser, Model model) {
+        if (loginUser == null) {
+            return "home";
         }
+        model.addAttribute("user", loginUser);
 
-        return "home";
+        return "loginHome";
     }
 }
