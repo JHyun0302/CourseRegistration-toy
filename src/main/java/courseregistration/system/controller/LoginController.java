@@ -17,9 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
-@Slf4j
 public class LoginController {
     private final LoginService loginService;
 
