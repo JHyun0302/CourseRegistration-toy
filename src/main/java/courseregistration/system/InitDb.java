@@ -19,6 +19,7 @@ public class InitDb {
     public void init() {
         initService.dbInit1();
         initService.dbInit2();
+        initService.dbInit3();
     }
 
     @Component
@@ -28,38 +29,38 @@ public class InitDb {
         private final EntityManager em;
 
         public void dbInit1() {
-            Major major = createMajor("software");
-            em.persist(major);
-
-            User user = createUser("test1", "test1!", "userA", major, Role.STUDENT, "userA@xxx.com", "010-1234-5678");
-            em.persist(user);
-
-            Course cLanguage = createCourse(major, "C Programming");
-            em.persist(cLanguage);
-
-            Classes classes1 = createClasses(cLanguage, 1, "lee", 50, 0);
-            em.persist(classes1);
-
-            TakeClass takeClass = createTakeClass(user, classes1);
-            em.persist(takeClass);
+            Major major = createMajor("art");
+            User user = createUser("123", "123", "user123", major, Role.STUDENT, "user123@xxx.com", "010-1111-1111");
+            Course course = createCourse(major, "artist");
+            Classes classes = createClasses(course, 1, "son", 30, 0);
+            TakeClass takeClass = createTakeClass(user, classes);
+            persist(major, user, course, classes, takeClass);
         }
 
         public void dbInit2() {
+            Major major = createMajor("software");
+            User user = createUser("test1", "test1!", "userA", major, Role.STUDENT, "userA@xxx.com", "010-1234-5678");
+            Course course = createCourse(major, "C Programming");
+            Classes classes = createClasses(course, 1, "lee", 50, 0);
+            TakeClass takeClass = createTakeClass(user, classes);
+            persist(major, user, course, classes, takeClass);
+        }
+
+        public void dbInit3() {
             Major major = createMajor("computerScience");
-            em.persist(major);
-
             User user = createUser("test2", "test2!", "userB", major, Role.STUDENT, "userB@xxx.com", "010-2222-5678");
+            Course course = createCourse(major, "Java Programming");
+            Classes classes = createClasses(course, 2, "kim", 30, 0);
+            TakeClass takeClass = createTakeClass(user, classes);
+            persist(major, user, course, classes, takeClass);
+        }
+
+        private void persist(Major major, User user, Course course, Classes classes, TakeClass takeClass) {
+            em.persist(major);
             em.persist(user);
-
-            Course javaLanguage = createCourse(major, "Java Programming");
-            em.persist(javaLanguage);
-
-            Classes classes2 = createClasses(javaLanguage, 2, "kim", 30, 0);
-            em.persist(classes2);
-
-            TakeClass takeClass = createTakeClass(user, classes2);
+            em.persist(course);
+            em.persist(classes);
             em.persist(takeClass);
-
         }
 
         public static TakeClass createTakeClass(User user, Classes classes) {
