@@ -4,13 +4,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
+
 @Getter
 @Setter
 @NoArgsConstructor
 public class UserUpdateRequestDto {
     private String loginId;
     private String username;
+    @NotEmpty
     private String email;
+    @NotEmpty
     private String phoneNumber;
     private String majorName;
 
