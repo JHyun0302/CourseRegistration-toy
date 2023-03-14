@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head th:replace="fragments/header :: header">
     <title>수강신청 사이트</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
@@ -10,6 +10,11 @@
     <style>
         .container {
             max-width: 560px;
+        }
+
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
         }
 
         input[type="number"]::-webkit-outer-spin-button,
@@ -27,34 +32,57 @@
 
     <h4 class="mb-3">회원 정보 입력</h4>
 
-    <form role="form" action="/signup" th:object="${signUpDto}" method="post">
-        <div th:if="${msg}">
-            <p th:text="${msg}" class="alert alert-danger"></p>
-        </div>
-
-        <div>
-            <label th:for="username">이름</label>
-            <input type="text" th:field="*{username}" id="username" class="form-control" required>
+    <form action="login.html" th:action th:object="${signUpDto}" method="post">
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메시지</p>
         </div>
         <div>
-            <label th:for="loginId">로그인 ID</label>
-            <input type="text" th:field="*{loginId}" id="loginId" class="form-control" required>
+            <label for="username" th:text="'name'">이름</label>
+            <input type="text" th:field="*{username}" id="username"
+                   th:errorclass="field-error" class="form-control" placeholder="이름을 입력하세요">
+            <div class="field-error" th:errors="*{username}">
+                이름 오류
+            </div>
         </div>
         <div>
-            <label th:for="password">비밀번호</label>
-            <input type="password" th:field="*{password}" id="password" class="form-control" required>
+            <label for="loginId" th:text="'loginId'">로그인 ID</label>
+            <input type="text" th:field="*{loginId}" id="loginId"
+                   th:errorclass="field-error" class="form-control" placeholder="로그인 ID를 입력하세요">
+            <div class="field-error" th:errors="*{loginId}">
+                로그인 ID 오류
+            </div>
         </div>
         <div>
-            <label for="password-confirm">비밀번호 확인</label>
-            <input type="password" th:field="*{passwordConfirm}" id="password-confirm" class="form-control" required>
+            <label for="password" th:text="'password'">비밀번호</label>
+            <input type="password" th:field="*{password}" id="password"
+                   th:errorclass="field-error" class="form-control" placeholder="비밀번호를 입력하세요">
+            <div class="field-error" th:errors="*{password}">
+                비밀번호 오류
+            </div>
         </div>
         <div>
-            <label th:for="email">이메일</label>
-            <input type="email" th:field="*{email}" id="email" class="form-control" required>
+            <label for="password-confirm" th:text="'password-confirm'">비밀번호 확인</label>
+            <input type="password" th:field="*{passwordConfirm}" id="password-confirm"
+                   th:errorclass="field-error" class="form-control" placeholder="비밀번호 확인을 입력하세요">
+            <div class="field-error" th:errors="*{passwordConfirm}">
+                비밀번호 확인 오류
+            </div>
         </div>
         <div>
-            <label th:for="phoneNumber">전화번호</label>
-            <input type="number" th:field="*{phoneNumber}" id="phoneNumber" class="form-control" required>
+            <label for="email" th:text="'email'">이메일</label>
+            <input type="email" th:field="*{email}" id="email"
+                   th:errorclass="field-error" class="form-control" placeholder="이메일을 입력하세요">
+            <div class="field-error" th:errors="*{email}">
+                이메일 오류
+            </div>
+        </div>
+        <div>
+            <label for="phoneNumber" th:text="'phoneNumber'">전화번호</label>
+            <input type="number" th:field="*{phoneNumber}" id="phoneNumber"
+                   th:errorclass="field-error" class="form-control" placeholder="전화번호를 입력하세요">
+            <div class="field-error" th:errors="*{phoneNumber}">
+                전화번호 오류
+            </div>
         </div>
         <div style="margin-top: 20px;">
             <div class="col">
@@ -64,7 +92,8 @@
                 <div class="row">
                     <select id="majorId" name="majorId" required>
                         <option value="">전공 선택</option>
-                        <option th:each="major : ${majors}" th:value="${major.majorId}" th:text="${major.majorName}" th:selected="${major.majorId == signUpDto.majorId}">
+                        <option th:each="major : ${majors}" th:value="${major.majorId}" th:text="${major.majorName}"
+                                th:selected="${major.majorId == signUpDto.majorId}">
                             전공 선택
                         </option>
                     </select>
@@ -76,15 +105,19 @@
 
         <div class="row">
             <div class="col">
-                <button class="w-100 btn btn-primary btn-lg" type="submit">회원 가입</button>
+                <button class="w-100 btn btn-primary btn-lg" type="submit">회원 가입
+                </button>
             </div>
             <div class="col">
-                <button class="w-100 btn btn-secondary btn-lg" onclick="location.href='/'" type="button">취소</button>
+                <button class="w-100 btn btn-secondary btn-lg"
+                        onclick="location.href='/'"
+                        th:onclick="|location.href='@{/}'|" type="button">취소
+                </button>
             </div>
         </div>
     </form>
 
-    <div th:replace="fragments/footer :: footer" />
+    <div th:replace="fragments/footer :: footer"/>
 </div>
 </body>
 </html>

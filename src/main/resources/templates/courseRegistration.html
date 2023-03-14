@@ -12,6 +12,10 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <div>
+        <h2 th:if="${param.status}" th:text="'수강신청 완료'"></h2>
+        <div style="margin-bottom: 15px;">
+            <span th:text="|${username}님의 수강신청|" style="font-weight: bold;"></span>
+        </div>
         <div>
             <form th:object="${classSearch}" class="form-inline">
                 <div class="form-group mx-sm-1 mb-2">
@@ -54,8 +58,9 @@
                 <td th:text="${class.maxStudentNum}"></td>
                 <td th:text="${class.curStudentNum}"></td>
                 <td>
-                    <a href="#" th:href="@{/register/{id} (id=${class.classId})}"
-                       class="btn btn-secondary">수강 신청</a>
+                    <a href="#" th:href="@{/register/{username}/{id} (username=${username}, id=${class.classId})}"
+                       class="btn btn-secondary">
+                        수강 신청</a>
                 </td>
             </tr>
             </tbody>
@@ -65,3 +70,6 @@
 </div> <!-- /container -->
 </body>
 </html>
+
+<!--th:href="@{/register/{username}/{id}?majorId={majorId}&courseId={courseId}-->
+<!--(username= ${username}, id=${class.classId}, majorId= ${major.majorId}, courseId= ${course.courseId})}"-->
