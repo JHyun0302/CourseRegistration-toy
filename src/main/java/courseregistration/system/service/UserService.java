@@ -50,9 +50,16 @@ public class UserService {
         return userId;
     }
 
-    public UserResponseDto findByUsername(String userName) {
+    public UserResponseDto findDtoByUsername(String userName) {
         User user = userRepository.findByUsername(userName)
                 .orElseThrow(() -> new IllegalArgumentException("Fail: Nothing username Info"));
         return new UserResponseDto(user);
     }
+
+//    public ClassSearch findClassSearchByUsername(String username) {
+//        Course course = userRepository.findClassSearchByUsername(username)
+//                .orElseThrow(() -> new IllegalArgumentException("Fail: Nothing ClassSearchDto Info"));
+//        return new ClassSearch();
+//    }
+    
 }
