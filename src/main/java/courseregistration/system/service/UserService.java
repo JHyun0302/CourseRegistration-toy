@@ -4,10 +4,10 @@ import courseregistration.system.controller.dto.UserResponseDto;
 import courseregistration.system.controller.dto.UserSignUpDto;
 import courseregistration.system.controller.dto.UserUpdateRequestDto;
 import courseregistration.system.entity.User;
+import courseregistration.system.exception.LoginIdException;
+import courseregistration.system.exception.ResourceNotFoundException;
 import courseregistration.system.repository.MajorRepository;
 import courseregistration.system.repository.UserRepository;
-import courseregistration.system.service.exception.LoginIdException;
-import courseregistration.system.service.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,11 +55,4 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("Fail: Nothing username Info"));
         return new UserResponseDto(user);
     }
-
-//    public ClassSearch findClassSearchByUsername(String username) {
-//        Course course = userRepository.findClassSearchByUsername(username)
-//                .orElseThrow(() -> new IllegalArgumentException("Fail: Nothing ClassSearchDto Info"));
-//        return new ClassSearch();
-//    }
-    
 }
