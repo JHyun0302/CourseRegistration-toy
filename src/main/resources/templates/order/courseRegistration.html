@@ -1,18 +1,10 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
-<head>
-    <th:block th:if="${msg}">
-        <script charset="UTF-8">
-            top.alert("[[${msg}]]");
-        </script>
-    </th:block>
-</head>
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <div>
-        <h2 th:if="${param.status}" th:text="'수강신청 완료'"></h2>
         <div style="margin-bottom: 15px;">
             <span th:text="|${username}님의 수강신청|" style="font-weight: bold;"></span>
         </div>
@@ -58,6 +50,7 @@
                 <td th:text="${class.maxStudentNum}"></td>
                 <td th:text="${class.curStudentNum}"></td>
                 <td>
+                    <button type="submit" class="btn btn-secondary">수강 신청</button>
                     <a href="#" th:href="@{/register/{username}/{id} (username=${username}, id=${class.classId})}"
                        class="btn btn-secondary">
                         수강 신청</a>
