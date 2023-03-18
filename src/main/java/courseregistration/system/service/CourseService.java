@@ -1,8 +1,8 @@
 package courseregistration.system.service;
 
 import courseregistration.system.entity.Course;
+import courseregistration.system.exception.ResourceNotFoundException;
 import courseregistration.system.repository.CourseRepository;
-import courseregistration.system.service.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
