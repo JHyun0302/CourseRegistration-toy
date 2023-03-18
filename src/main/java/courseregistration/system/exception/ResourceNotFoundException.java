@@ -1,4 +1,4 @@
-package courseregistration.system.service.exception;
+package courseregistration.system.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException() {
