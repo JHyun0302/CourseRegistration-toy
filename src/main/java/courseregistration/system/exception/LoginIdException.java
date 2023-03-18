@@ -1,4 +1,4 @@
-package courseregistration.system.service.exception;
+package courseregistration.system.exception;
 
 public class LoginIdException extends RuntimeException {
     public LoginIdException() {
