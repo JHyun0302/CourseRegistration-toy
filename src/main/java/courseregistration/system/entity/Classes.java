@@ -35,16 +35,18 @@ public class Classes extends BaseTimeEntity {
         this.curStudentNum = curStudentNum;
     }
 
+    //==생성 메서드==//
     public static Classes createClasses(Course course, int classNumber, String professorName, int maxStudentNum, int curStudentNum) {
         return new Classes(course, classNumber, professorName, maxStudentNum, curStudentNum);
     }
 
-    //==수강신청 신청==//
+    //==비지니스 로직==//
+    //수강 신청
     public void registration() {
         this.curStudentNum++;
     }
 
-    //==수강신청 취소==//
+    //수강 취소
     public void cancel() {
         this.curStudentNum--;
     }
