@@ -25,22 +25,22 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login(@ModelAttribute("loginForm") LoginForm loginForm) {
-        return "login";
+        return "login/login";
     }
 
     @PostMapping("/login")
-    public String login(@Valid @ModelAttribute LoginForm form, BindingResult bindingResult,
+    public String login(@Valid @ModelAttribute("loginForm") LoginForm form, BindingResult bindingResult,
                         @RequestParam(defaultValue = "/") String redirectURL,
                         HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
-            return "login";
+            return "login/login";
         }
 
         User loginUser = loginService.login(form.getLoginId(), form.getPassword());
         log.info("login? {}", loginUser);
-        if (bindingResult == null) {
+        if (loginUser == null) {
             bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
-            return "login";
+            return "login/login";
         }
 
         HttpSession session = request.getSession();
