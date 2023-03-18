@@ -1,13 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
-<head>
-    <th:block th:if="${msg}">
-        <script charset="UTF-8">
-            top.alert("[[${msg}]]");
-        </script>
-    </th:block>
-</head>
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
@@ -30,9 +23,12 @@
                 <td th:text="${takeClass.classes.professorName}"></td>
                 <td th:text="|0${takeClass.classes.classNumber}|"></td>
                 <td>
-                    <a href="#" th:href="@{/cancel/{id} (id=${takeClass.takeId})}"
+                    <a th:if="${takeClass.getUser().getRole().name() == 'STUDENT'}" href="#"
+                       th:href="'javascript:cancel('+${username}+','+${takeClass.getTakeId()}+')'"
                        class="btn btn-danger">CANCEL</a>
                 </td>
+                <!--                th:href="'javascript:cancel('+${takeClass.getTakeId()}+')'"-->
+                <!--                       th:href="'javascript:cancel('+${username}+','+${takeClass.getTakeId()}+')'"-->
             </tr>
             </tbody>
         </table>
@@ -40,4 +36,14 @@
     <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
 </body>
+<script>
+    function cancel(username, takeId) {
+        var form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", +username + takeId + "/cancel");
+        document.body.appendChild(form);
+        form.submit();
+    } </script>
 </html>
+
+<!--/myCourses/{username}/{takeId}/cancel-->
