@@ -10,6 +10,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByUsername(String userName);
 
-    //    Optional<Course> findClassSearchByUsername(String userName)
-
 }
