@@ -31,6 +31,7 @@ public class TakeClass extends BaseTimeEntity {
         this.classes = classes;
     }
 
+    //==생성 메서드==//
     public static TakeClass createTakeClass(User user, Classes classes) {
         return new TakeClass(user, classes);
     }
