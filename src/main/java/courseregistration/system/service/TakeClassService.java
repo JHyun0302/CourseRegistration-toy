@@ -3,10 +3,10 @@ package courseregistration.system.service;
 import courseregistration.system.entity.Classes;
 import courseregistration.system.entity.TakeClass;
 import courseregistration.system.entity.User;
+import courseregistration.system.exception.RegistrationException;
 import courseregistration.system.repository.ClassesRepository;
 import courseregistration.system.repository.TakeClassRepository;
 import courseregistration.system.repository.UserRepository;
-import courseregistration.system.service.exception.RegistrationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +36,7 @@ public class TakeClassService {
                 .filter(takeClass -> takeClass.getClasses().getCourse().equals(classes.getCourse().getCourseId()))
                 .findAny();
 
+
         if (getCourse.isPresent()) {
             throw new RegistrationException("Fail: Already Registered!");
         }
@@ -49,7 +50,7 @@ public class TakeClassService {
     }
 
     @Transactional
-    public void delete(Long takeId) {
+    public User delete(Long takeId) {
         TakeClass deleteClass = takeClassRepository.findById(takeId).get();
 
         User user = userRepository.findById(deleteClass.getUser().getUserId()).get();
@@ -57,5 +58,7 @@ public class TakeClassService {
 
         Classes classes = classesRepository.findById(deleteClass.getClasses().getClassId()).get();
         classes.cancel();
+
+        return user;
     }
 }
