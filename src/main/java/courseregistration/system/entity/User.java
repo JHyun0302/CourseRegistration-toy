@@ -51,6 +51,7 @@ public class User extends BaseTimeEntity {
         this.takeClasses = new ArrayList<>();
     }
 
+    //==생성 메서드==//
     public static User createStudent(String loginId, String password, String username, Major major, String email, String phoneNumber) {
         return new User(loginId, password, username, major, Role.STUDENT, email, phoneNumber);
     }
@@ -59,17 +60,18 @@ public class User extends BaseTimeEntity {
         return new User(loginId, password, username, major, Role.ADMIN, email, phoneNumber);
     }
 
+    //==비지니스 로직==//
     public void update(UserUpdateRequestDto requestDto) {
         this.email = requestDto.getEmail();
         this.phoneNumber = requestDto.getPhoneNumber();
     }
 
-    //==수강 신청==//
+    //수강 신청
     public void registration(TakeClass saveClass) {
         this.takeClasses.add(saveClass);
     }
 
-    //==수강 취소==//
+    //수강 취소
     public void cancel(TakeClass deleteClass) {
         this.takeClasses.remove(deleteClass);
     }
